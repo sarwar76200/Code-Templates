@@ -73,7 +73,7 @@ int query(int node, int tL, int tR, int l, int r) {
 
     return QL + QR;
 }
-
+// https://www.topcoder.com/thrive/articles/range-operations-lazy-propagation#:~:text=Lazy%20propagation%20is%20a%20range,will%20avoid%20the%20repeated%20sharing.
 
 int main() {
 
