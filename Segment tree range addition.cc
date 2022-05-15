@@ -80,10 +80,12 @@ int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    // clear lazy in each testcase
 
     int n = 10;
     build(1, 0, n - 1);
+
+    // clear lazy in each testcase
+    memset(lazy, -1, sizeof lazy);
 
     update(1, 0, n - 1, 1, 7, 5);
     update(1, 0, n - 1, 2, 4, -3);
