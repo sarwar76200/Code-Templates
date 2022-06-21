@@ -2,36 +2,19 @@
 
 using namespace std;
 
-const int MX_N = 100001;
+const int N = 100001;
 struct Node {
     int vertex, weight;
 };
 
-int dist[MX_N], parent[MX_N];
-bool vis[MX_N];
-vector<Node> adj[MX_N];
+int dist[N], parent[N];
+bool vis[N];
+vector<Node> adj[N];
 
 void init() {
-    for (int i = 0; i < MX_N; ++i) {
+    for (int i = 0; i < N; ++i) {
         dist[i] = INT_MAX, parent[i] = -1, vis[i] = false;
     }
-}
-
-void reset() {
-    init();
-    for (auto& i : adj)
-        i.clear();
-}
-
-vector<int> path(int dst) {
-    int cur = dst;
-    vector<int> path;
-    while (cur != -1) {
-        path.push_back(cur);
-        cur = parent[cur];
-    }
-    reverse(path.begin(), path.end());
-    return path;
 }
 
 struct cmp {
