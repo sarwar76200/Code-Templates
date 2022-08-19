@@ -1,0 +1,3 @@
+Add compiler to path: rundll32 sysdm.cpl,EditEnvironmentVariables
+Clangd args: -header-insertion=never
+Precompile header: g++ stdc++.h {flags you use when compiling a normal code}
