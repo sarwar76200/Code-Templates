@@ -7,7 +7,7 @@ void sparse_table(vector<int>& a, int n) {
     }
 
     for (int j = 1; j < LG; ++j) {
-        for (int i = 0; i + (1 << j) - 1 < N; ++i) {
+        for (int i = 0; i + (1 << j) - 1 < n; ++i) {
             st[i][j] = min(st[i][j - 1], st[i + (1 << (j - 1))][j - 1]);
         }
     }
