@@ -27,9 +27,3 @@ exit /b 0
 :run_file
 %file_name_without_ext% < in.txt > out.txt 2>err.txt
 exit /b 0
-
-
-
-
-
-
