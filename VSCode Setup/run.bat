@@ -20,12 +20,12 @@ exit /b %exit_code%
 
 :compile
 if %config% == release (
-    echo [release] g++ -std=c++20 -DLOCAL -O2 %file_name% -o %file_name_without_ext%
-    g++ -std=c++20 -DLOCAL -O2 %file_name% -o %file_name_without_ext%
+    echo [release] g++ -Wl,--stack,2147483648 -std=c++20 -DLOCAL -O2 %file_name% -o %file_name_without_ext%
+    g++ -Wl,--stack,2147483648 -std=c++20 -DLOCAL -O2 %file_name% -o %file_name_without_ext%
 )
 if %config% == debug (
-    echo [debug] g++ -std=c++20 -DLOCAL -O2 %file_name% -o %file_name_without_ext%
-    g++ -std=c++20 -DLOCAL %file_name% -o %file_name_without_ext%
+    echo [debug] g++ -Wl,--stack,2147483648 -std=c++20 -DLOCAL %file_name% -o %file_name_without_ext%
+    g++ -Wl,--stack,2147483648 -std=c++20 -DLOCAL %file_name% -o %file_name_without_ext%
 )
 exit /b 0
 
