@@ -3,3 +3,5 @@ InlayHints:
   ParameterNames: No
   DeducedTypes: No
   
+CompileFlags:
+  Add: [-std=c++20, -DLOCAL]
