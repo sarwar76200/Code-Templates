@@ -10,7 +10,3 @@ rundll32 sysdm.cpl,EditEnvironmentVariables
 ````
 g++ stdc++.h -std=c++20
 ````
-## Code runner executor
-````
-"cpp": "cd $dir && run.bat $fileName $fileNameWithoutExt"
-````
