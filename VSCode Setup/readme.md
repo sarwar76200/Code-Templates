@@ -8,7 +8,7 @@ rundll32 sysdm.cpl,EditEnvironmentVariables
 ````
 ## Precompile header
 ````
-g++ stdc++.h -std=c++20
+g++ stdc++.h -Wall -std=c++20
 ````
 ## Code runner executor
 ````
