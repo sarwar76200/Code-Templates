@@ -1897,32 +1897,31 @@
 		"description": ""
 	},
 	"Bitwise Sieve of Eratosthenes": {
-		"prefix": "sieveBitwise",
+		"prefix": "sieve_bitwise",
 		"body": [
-			"const int MXX = 1e8;",
-			"uint32_t isPrime[MXX / 32 + 5];",
+			"constexpr int N = 1E6;",
+			"uint32_t is_prime[N / 32 + 1];",
+			"vector<int> primes;",
 			"",
-			"// 173th bit = 173 / 32 + 173 % 32",
-			"//           = isPrime[173 / 32] [173 % 32]",
 			"void sieve() {",
-			"    // false = prime, true = not prime",
-			"    SET(isPrime[0 / 32], 0 % 32);",
-			"    SET(isPrime[0 / 32], 1 % 32);",
-			"    for (int i = 4; i <= MXX; i += 2) {",
-			"        SET(isPrime[i / 32], i % 32);",
+			"  // false = prime, true = not prime",
+			"  is_prime[0] |= (1 << 0);",
+			"  is_prime[0] |= (1 << 1);",
+			"  for (int i = 4; i <= N; i += 2) is_prime[i / 32] |= (1 << (i % 32));",
+			"  for (int64_t i = 3; i * i <= N; i += 2) {",
+			"    if (!(is_prime[i / 32] & (1 << (i % 32)))) {",
+			"      for (int64_t j = i * i; j <= N; j += i + i) is_prime[j / 32] |= (1 << (j % 32));",
 			"    }",
-			"    for (ll i = 3; i * i <= MXX; i += 2) {",
-			"        if (!isSET(isPrime[i / 32], i % 32)) {",
-			"            for (ll j = i * i; j <= MXX; j += i + i) {",
-			"                SET(isPrime[j / 32], j % 32);",
-			"            }",
-			"        }",
+			"  }",
+			"  for (int i = 2; i <= N; ++i) {",
+			"    if (!(is_prime[i / 32] & (1 << (i % 32)))) {",
+			"      primes.push_back(i);",
 			"    }",
+			"  }",
 			"}",
-			""
 		],
-		"description": ""
-	},
+		"description": "Bitwise Sieve of Eratosthenes"
+	},	
 	"Sieve in Linear Time Complexity": {
 		"prefix": "sieveN",
 		"body": [
@@ -2054,17 +2053,19 @@
 	"Sparse Table: Modular Version": {
 		"prefix": "sparse_class",
 		"body": [
-			"template<typename Tp>",
+			"template<typename Tp = int32_t>",
 			"struct sparse {",
 			"  vector<vector<Tp>> st;",
 			"  vector<Tp> lgs;",
 			"  int n, lg;",
+			"  function<Tp(Tp, Tp)> op;",
 			"",
-			"  explicit sparse(const vector<Tp>& a) {",
+			"  explicit sparse(const vector<Tp>& a, const function<Tp(Tp, Tp)>& op = [](Tp x, Tp y) -> Tp { return min(x, y); }) {",
 			"    sparse::n = (int) a.size();",
 			"    sparse::lg = __lg(sparse::n) + 1;",
 			"    sparse::lgs.resize(sparse::n + 1);",
 			"    sparse::st.resize(n, vector<Tp>(sparse::lg, 0));",
+			"    sparse::op = op;",
 			"    sparse::init(a);",
 			"  }",
 			"",
@@ -2072,13 +2073,13 @@
 			"    for (int i = 0; i < n; ++i) st[i][0] = a[i], lgs[i + 1] = __lg(i + 1);",
 			"    for (int j = 1; j < lg; ++j) {",
 			"      for (int i = 0; i + (1 << j) - 1 < n; ++i) {",
-			"        st[i][j] = min(st[i][j - 1], st[i + (1 << (j - 1))][j - 1]);",
+			"        st[i][j] = op(st[i][j - 1], st[i + (1 << (j - 1))][j - 1]);",
 			"      }",
 			"    }",
 			"  }",
 			"  Tp query(int L, int R) {",
 			"    int lg = lgs[R - L + 1];",
-			"    return min(st[L][lg], st[R - (1 << lg) + 1][lg]);",
+			"    return op(st[L][lg], st[R - (1 << lg) + 1][lg]);",
 			"  }",
 			"",
 			"  Tp query_d(int L, int R) {",
@@ -2091,11 +2092,11 @@
 			"    return sum;",
 			"  }",
 			"};",
+			"",
 		],
 		"description": "Sparse Table: Modular Version"
 	},
-	
-	
+
 	"Sieve upto 10^9": {
 		"prefix": "sieve1e9",
 		"body": [
